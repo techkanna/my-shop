@@ -1,0 +1,35 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: $font-family-open;
+  font-size: 1rem;
+  color: $black-col;
+  background-color: $white-col;
+  font-weight: normal;
+  line-height: 1.6;
+  overflow: hidden;
+}
+
+a {
+  display: inline-block;
+  text-decoration: none;
+  color: $link-col;
+}
+
+// :focus {
+//   outline: 2px solid darken($outline-col, 20);
+// }
+
+// .js-focus-visible :focus:not(.focus-visible) {
+//   outline: 0;
+// }
+
+button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
