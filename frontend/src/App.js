@@ -1,20 +1,23 @@
 import './scss/style.scss';
-
+import Header from './components/Header';
+import OwlCarousel from 'react-owl-carousel2';
 function App() {
+  const options = {
+    items: 1,
+    nav: true,
+    loop: true,
+    // autoplay: true
+  };
+
   return (
     <>
-      <nav>
-        <div className="container">
-          <div className="left">
-            <button className="logo">MY SHOP</button>
-            <form>
-              <input type="text" placeholder='Search Products...'/>
-              <button type="submit">SEARCH</button>
-            </form>
-          </div>
-          <div className="right"></div>
-        </div>
-      </nav>
+      <Header />
+
+      <OwlCarousel options={options}>
+        <div><h1>hallo</h1></div>
+        <div><h1>hallo</h1></div>
+        <div><h1>hallo</h1></div>
+      </OwlCarousel>
     </>
   );
 }

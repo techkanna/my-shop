@@ -1,0 +1,56 @@
+.main-head {
+  background-color: $primary-col;
+  color: #fff;
+  padding: 1.3rem 0;
+
+  button,
+  a {
+    color: #aaa;
+  }
+  .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .left {
+    .logo {
+      font-size: 1.2rem;
+      color: #dddddd;
+      margin-right: 2rem;
+      vertical-align: middle;
+    }
+    form {
+      display: inline-block;
+
+      input {
+        vertical-align: middle;
+
+        padding: 0.5rem;
+        font-size: 0.8rem;
+        margin-right: 0.5rem;
+      }
+
+      button {
+        padding: 0.56rem;
+        color: $green-col;
+        box-shadow: 0 0 0 2px $green-col inset;
+      }
+    }
+  }
+
+  .right {
+    ul {
+      display: flex;
+      li {
+        .svg-img {
+          margin-right: 0.3rem;
+          vertical-align: text-bottom;
+        }
+        &:not(:last-of-type) {
+          margin-right: 1rem;
+        }
+      }
+    }
+  }
+}
