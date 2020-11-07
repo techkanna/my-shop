@@ -1,4 +1,4 @@
-export default [
+const product = [
   {
     "_id": "5fa0f29f93b60039ac9fca2e",
     "name": "Share Fujifilm X X-100F  (24.3 MP, 0 Optical Zoom, 2x Maximum Digital Zoom, Silver)",
@@ -453,3 +453,4 @@ export default [
     "id": "5fa1061d824ca82250a878f4"
   }
 ]
+export default product;

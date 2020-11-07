@@ -1,3 +1,48 @@
 .main-banner {
-  border: 1px solid #000;
+  padding: 2rem 0;
+  .container {
+    background-color: $primary-col;
+    color: #ddd;
+    .slide-item {
+      padding: 0.8rem;
+      h1 {
+        font-size: 1.2rem;
+        text-align: center;
+      }
+      .circle {
+        margin: 1rem auto;
+        height: 17rem;
+        width: 17rem;
+        background-color: #fff;
+        border-radius: 50%;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        img {
+          width: 70%;
+        }
+      }
+    }
+
+    .owl-theme {
+      .owl-nav {
+        margin-top: 0px;
+
+        & > div {
+          position: absolute;
+          top: 50%;
+          transform: translateY(-50%);
+        }
+
+        .owl-prev {
+          left: 0;
+        }
+        .owl-next {
+          right: 0;
+        }
+      }
+    }
+  }
 }
