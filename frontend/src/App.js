@@ -1,13 +1,16 @@
 import Header from './components/Header';
 import MainBanner from './components/MainBanner';
 // import LatestProducts from './components/LatestProducts';
+import { BrowserRouter as Router } from 'react-router-dom'
 function App() {
 
   return (
     <>
-      <Header />
-      <MainBanner />
-      {/* <LatestProducts /> */}
+      <Router>
+        <Header />
+        <MainBanner />
+        {/* <LatestProducts /> */}
+      </Router>
     </>
   );
 }
