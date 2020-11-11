@@ -3,7 +3,7 @@ import {
   PRODUCT_TOP_LIST_SUCCESS,
   PRODUCT_TOP_LIST_FAIL
 } from '../constants/productConstents';
-const productsReducer = (state = {}, action) => {
+const productsReducer = (state = { products: [] }, action) => {
   switch (action.type) {
     case PRODUCT_TOP_LIST_REQUEST:
       return { loading: true, products: [] };

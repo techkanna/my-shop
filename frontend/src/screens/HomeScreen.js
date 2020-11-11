@@ -11,17 +11,18 @@ import Meta from '../components/Meta'
 import { listProducts } from '../actions'
 
 const HomeScreen = ({ match }) => {
-  const keyword = match.params.keyword
+  const dispatch = useDispatch();
 
-  const pageNumber = match.params.pageNumber || 1
+  const keyword = match.params.keyword;
 
-  const dispatch = useDispatch()
+  const pageNumber = match.params.pageNumber || 1;
 
-  const productList = useSelector((state) => state.productList)
-  const { loading, error, products, page, pages } = productList
+
+  const productList = useSelector((state) => state.productList);
+  const { loading, error, products, page, pages } = productList;
 
   useEffect(() => {
-    dispatch(listProducts(keyword, pageNumber))
+    dispatch(listProducts(keyword, pageNumber));
   }, [dispatch, keyword, pageNumber])
 
   return (
@@ -30,33 +31,33 @@ const HomeScreen = ({ match }) => {
       {!keyword ? (
         <MainBanner />
       ) : (
-        <Link to='/' className='btn btn-light'>
-          Go Back
-        </Link>
-      )}
+          <Link to='/' className='btn btn-light'>
+            Go Back
+          </Link>
+        )}
       <h1>Latest Products</h1>
       {loading ? (
         <Loader />
       ) : error ? (
         <Message variant='danger'>{error}</Message>
       ) : (
-        <>
-          <Row>
-            {products.map((product) => (
-              <Col key={product._id} sm={12} md={6} lg={4} xl={3}>
-                <Product product={product} />
-              </Col>
-            ))}
-          </Row>
-          <Paginate
-            pages={pages}
-            page={page}
-            keyword={keyword ? keyword : ''}
-          />
-        </>
-      )}
+            <>
+              <Row>
+                {products.map((product) => (
+                  <Col key={product._id} sm={12} md={6} lg={4} xl={3}>
+                    <Product product={product} />
+                  </Col>
+                ))}
+              </Row>
+              <Paginate
+                pages={pages}
+                page={page}
+                keyword={keyword ? keyword : ''}
+              />
+            </>
+          )}
     </>
   )
 }
 
-export default HomeScreen
+export default HomeScreen;
