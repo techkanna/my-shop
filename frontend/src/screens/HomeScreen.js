@@ -8,7 +8,7 @@ import Loader from '../components/Loader'
 import Paginate from '../components/Paginate'
 import MainBanner from '../components/MainBanner'
 import Meta from '../components/Meta'
-import { listProducts } from '../actions'
+import { listProducts } from '../actions/productActions'
 
 const HomeScreen = ({ match }) => {
   const dispatch = useDispatch();

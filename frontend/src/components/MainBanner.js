@@ -2,14 +2,14 @@ import React, { useEffect } from 'react'
 import { getRs } from '../helper';
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux'
-import { getTopProducts } from "../actions";
+import { getTopProducts } from "../actions/productActions";
 import { Carousel } from 'react-bootstrap'
 import Loader from './Loader';
 import Message from './Message';
 
 function MainBanner() {
   const dispatch = useDispatch();
-  const storedProducts = useSelector(state => state.products)
+  const storedProducts = useSelector(state => state.productsTopList)
   const { loading, products, error } = storedProducts;
 
   useEffect(() => {

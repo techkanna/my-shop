@@ -65,3 +65,29 @@ a {
     }
   }
 }
+
+.card {
+  img {
+    transition: transform 0.2s ease-in-out;
+  }
+  &:hover {
+    img {
+      transform: scale(1.1);
+    }
+  }
+}
+
+.nav-link {
+  .svg {
+    width: 0.85rem;
+    vertical-align: text-top;
+    margin-right: 0.2rem;
+  }
+
+  &.active,
+  &:hover {
+    .svg {
+      fill: rgba(255, 255, 255, 0.856);
+    }
+  }
+}

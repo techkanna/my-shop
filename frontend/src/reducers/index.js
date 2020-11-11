@@ -1,12 +1,10 @@
-import isLogged from "./isLogged";
-import products from "./products";
-import productReduser from "./productReduser";
 import { combineReducers } from 'redux'
+import { productsReducer, productListReducer, productDetailsReducer } from "./productReduser";
 
 const allReducers = combineReducers({
-  isLogged,
-  products,
-  productList: productReduser
+  productsTopList: productsReducer,
+  productList: productListReducer,
+  productDetails: productDetailsReducer
 })
 
 export default allReducers;
