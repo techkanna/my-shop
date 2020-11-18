@@ -1,0 +1,24 @@
+{
+  "collectionName": "components_test_tests",
+  "info": {
+    "name": "review",
+    "icon": "file-signature",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "comment": {
+      "type": "text"
+    },
+    "rating": {
+      "type": "integer"
+    },
+    "createdat": {
+      "type": "datetime"
+    }
+  }
+}
