@@ -40,7 +40,7 @@
       "type": "integer"
     },
     "category": {
-      "model": "category",
+      "model": "categorie",
       "via": "products"
     },
     "reviews": {
