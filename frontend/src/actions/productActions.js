@@ -8,8 +8,13 @@ import {
   PRODUCT_TOP_LIST_FAIL,
   PRODUCT_DETAILS_REQUEST,
   PRODUCT_DETAILS_SUCCESS,
-  PRODUCT_DETAILS_FAIL
+  PRODUCT_DETAILS_FAIL,
+  PRODUCT_CREATE_REVIEW_REQUEST,
+  PRODUCT_CREATE_REVIEW_SUCCESS,
+  PRODUCT_CREATE_REVIEW_FAIL
 } from '../constants/productConstents';
+
+import { logout } from './userActions'
 
 export const getTopProducts = () => async (dispatch) => {
   try {
@@ -102,3 +107,59 @@ export const listProductDetails = (id) => async (dispatch) => {
     })
   }
 }
+
+export const createProductReview = (productId, review) => async (
+  dispatch,
+  getState
+) => {
+  try {
+    dispatch({
+      type: PRODUCT_CREATE_REVIEW_REQUEST,
+    })
+
+    const {
+      userLogin: { userInfo },
+    } = getState()
+
+    const { data: prodect } = await axios.get(`/products/${productId}`)
+
+    if (prodect.reviews.find(prod => prod.reviewerId === userInfo._id)) {
+      dispatch({
+        type: PRODUCT_CREATE_REVIEW_FAIL,
+        payload: "Product already reviewed!",
+      })
+      return
+    }
+
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    }
+
+    const allReviews = {
+      "reviews": [...prodect.reviews, { ...review, name: userInfo.username, reviewerId: userInfo._id }]
+    }
+
+    await axios.put(`/products/${productId}`, allReviews, config)
+
+    dispatch({
+      type: PRODUCT_CREATE_REVIEW_SUCCESS,
+    })
+  } catch (error) {
+    console.dir(error)
+    const message =
+      error.response && error.response.data.message
+        ? error.response.data.message
+        : error.message
+    if (message === 'Not authorized, token failed') {
+      dispatch(logout())
+    }
+    dispatch({
+      type: PRODUCT_CREATE_REVIEW_FAIL,
+      payload: message,
+    })
+  }
+}
+

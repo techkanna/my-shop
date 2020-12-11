@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import { listProductDetails } from '../actions/productActions'
+import { listProductDetails, createProductReview } from '../actions/productActions'
 import { Row, Col, Image, ListGroup, Card, Button, Form } from 'react-bootstrap'
 import Rating from '../components/Rating'
 import Loader from '../components/Loader'
 import Message from '../components/Message'
 import Meta from '../components/Meta'
 import { getRs } from '../helper'
+import { PRODUCT_CREATE_REVIEW_RESET } from '../constants/productConstents'
 
 function ProductScreen({ match }) {
   const [qty, setQty] = useState(1)
@@ -19,31 +20,46 @@ function ProductScreen({ match }) {
   const productDetails = useSelector((state) => state.productDetails)
   const { loading, product, error } = productDetails
 
-  // dev dependencies
-  const {
-    successProductReview,
-    loadingProductReview,
-    errorProductReview
-  } = {
-    successProductReview: false,
-    loadingProductReview: false,
-    errorProductReview: false
-  }
+  const userLogin = useSelector((state) => state.userLogin)
+  const { userInfo } = userLogin
 
-  const userInfo = true;
+  const productReviewCreate = useSelector((state) => state.productReviewCreate)
+  const {
+    success: successProductReview,
+    loading: loadingProductReview,
+    error: errorProductReview,
+  } = productReviewCreate
 
   const submitHandler = (e) => {
     e.preventDefault();
-    console.log('submitHandler');
+
     const date = new Date().toISOString()
-    console.log({ rating, comment, date });
+    dispatch(
+      createProductReview(match.params.id, {
+        rating,
+        comment,
+        createdat: date
+      })
+    )
   }
 
   useEffect(() => {
-    if (!product._id || product._id !== match.params.id) {
+    if (successProductReview) {
+      setRating(0)
+      setComment('')
       dispatch(listProductDetails(match.params.id))
     }
-  }, [dispatch, match, product])
+
+    if (errorProductReview === 'Product already reviewed!') {
+      setRating(0)
+      setComment('')
+    }
+
+    if (!product._id || product._id !== match.params.id) {
+      dispatch(listProductDetails(match.params.id))
+      dispatch({ type: PRODUCT_CREATE_REVIEW_RESET })
+    }
+  }, [dispatch, match, product._id, successProductReview, errorProductReview])
 
   const addToCartHandler = () => {
     console.log('addToCartHandler')
@@ -194,7 +210,7 @@ function ProductScreen({ match }) {
                           ></Form.Control>
                         </Form.Group>
                         <Button
-                          disabled={loadingProductReview}
+                          disabled={loadingProductReview || !rating || !comment}
                           type='submit'
                           variant='primary'
                         >

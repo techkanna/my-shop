@@ -19,6 +19,11 @@
     },
     "createdat": {
       "type": "datetime"
+    },
+    "reviewerId": {
+      "type": "string",
+      "required": true,
+      "unique": false
     }
   }
 }

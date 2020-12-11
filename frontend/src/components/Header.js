@@ -1,15 +1,22 @@
 import React from 'react'
 import { Route } from "react-router-dom";
+import { useDispatch, useSelector } from 'react-redux'
 import { Navbar, Container, Nav, NavDropdown } from 'react-bootstrap'
 import { LinkContainer } from 'react-router-bootstrap';
 import SearchBox from "./SearchBox";
+import { logout } from '../actions/userActions'
 
 function Header() {
-  const userInfo = undefined;
+  const dispatch = useDispatch()
+
+  const userLogin = useSelector(state => state.userLogin)
+  const { userInfo } = userLogin
+
+
   const logoutHandler = () => {
-    // dispatch(logout())
-    console.log('hi');
+    dispatch(logout())
   }
+
   return (
     <header>
       <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
@@ -32,7 +39,7 @@ function Header() {
                 </Nav.Link>
               </LinkContainer>
               {userInfo ? (
-                <NavDropdown title={userInfo.name} id='username'>
+                <NavDropdown title={userInfo.username} id='username'>
                   <LinkContainer to='/profile'>
                     <NavDropdown.Item>Profile</NavDropdown.Item>
                   </LinkContainer>
