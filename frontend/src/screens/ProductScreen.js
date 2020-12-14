@@ -10,7 +10,7 @@ import Meta from '../components/Meta'
 import { getRs } from '../helper'
 import { PRODUCT_CREATE_REVIEW_RESET } from '../constants/productConstents'
 
-function ProductScreen({ match }) {
+function ProductScreen({ match, history }) {
   const [qty, setQty] = useState(1)
   const [rating, setRating] = useState(0)
   const [comment, setComment] = useState('')
@@ -62,7 +62,7 @@ function ProductScreen({ match }) {
   }, [dispatch, match, product._id, successProductReview, errorProductReview])
 
   const addToCartHandler = () => {
-    console.log('addToCartHandler')
+    history.push(`/cart/${match.params.id}?qty=${qty}`)
   }
 
   if (loading) return <Loader />
