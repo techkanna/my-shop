@@ -6,7 +6,7 @@ import Message from '../components/Message'
 import { addToCart, removeFromCart } from '../actions/cardActions'
 import { sortText, getRs } from '../helper'
 
-function CartScreen({ match, location }) {
+function CartScreen({ match, location, history }) {
   const productId = match.params.id
 
   const qty = location.search ? Number(location.search.split('=')[1]) : 1
@@ -29,8 +29,7 @@ function CartScreen({ match, location }) {
   }
 
   const checkoutHandler = () => {
-    // history.push('/login?redirect=shipping')
-    console.log('checkoutHandler')
+    history.push('/login?redirect=shipping')
   }
 
   return (
