@@ -9,7 +9,8 @@ import {
 import {
   userRegisterReducer,
   userLoginReducer,
-  userDetailsReducer
+  userDetailsReducer,
+  userUpdateProfileReducer
 } from './userReducers'
 
 const allReducers = combineReducers({
@@ -21,6 +22,7 @@ const allReducers = combineReducers({
   productReviewCreate: productReviewCreateReducer,
   cart: cartReducer,
   userDetails: userDetailsReducer,
+  userUpdateProfile: userUpdateProfileReducer,
 })
 
 export default allReducers;

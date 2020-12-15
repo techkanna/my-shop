@@ -4,8 +4,8 @@ import { LinkContainer } from 'react-router-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import Message from '../components/Message'
 import Loader from '../components/Loader'
-import { getUserDetails } from '../actions/userActions'
-// import {USER_UPDATE_PROFILE_RESET} from '../constants/userConstants'
+import { getUserDetails, updateUserProfile } from '../actions/userActions'
+// import { USER_UPDATE_PROFILE_RESET } from '../constants/userConstants'
 
 function ProfileScreen({ history }) {
   const [name, setName] = useState('')
@@ -22,8 +22,9 @@ function ProfileScreen({ history }) {
   const userLogin = useSelector((state) => state.userLogin)
   const { userInfo } = userLogin
 
-  // const userUpdateProfile = useSelector((state) => state.userUpdateProfile)
-  const { success } = { success: false }
+  const userUpdateProfile = useSelector((state) => state.userUpdateProfile)
+
+  const { success, error: userUpdateProfileError } = userUpdateProfile
 
   // const orderListMy = useSelector((state) => state.orderListMy)
   const { loading: loadingOrders, error: errorOrders, orders } = { loading: false, error: false, orders: [] }
@@ -32,25 +33,26 @@ function ProfileScreen({ history }) {
     if (!userInfo) {
       history.push('/login')
     } else {
-      console.log(user);
       if (!user || !user.username || success) {
         // dispatch({ type: USER_UPDATE_PROFILE_RESET })
-        // dispatch(getUserDetails())
+        dispatch(getUserDetails())
         // dispatch(listMyOrders())
       } else {
         setName(user.username)
         setEmail(user.email)
       }
     }
-  }, [dispatch, history, userInfo, success])
+
+  }, [dispatch, history, userInfo, user, success])
 
   const submitHandler = (e) => {
     e.preventDefault()
     if (password !== confirmPassword) {
       setMessage('Passwords do not match')
     } else {
-      // dispatch(updateUserProfile({ id: user._id, name, email, password }))
-      console.log('submitHandler');
+      if (password && confirmPassword) {
+        dispatch(updateUserProfile({ id: user._id, username: name, email, password }))
+      }
     }
   }
 
@@ -59,6 +61,7 @@ function ProfileScreen({ history }) {
       <Col md={3}>
         <h2>User Profile</h2>
         {message && <Message variant='danger'>{message}</Message>}
+        {userUpdateProfileError && <Message variant='danger'>{userUpdateProfileError}</Message>}
         { }
         {success && <Message variant='success'>Profile Updated</Message>}
         {loading ? (
@@ -93,6 +96,7 @@ function ProfileScreen({ history }) {
                     type='password'
                     placeholder='Enter password'
                     value={password}
+                    required
                     onChange={(e) => setPassword(e.target.value)}
                   ></Form.Control>
                 </Form.Group>
@@ -103,6 +107,7 @@ function ProfileScreen({ history }) {
                     type='password'
                     placeholder='Confirm password'
                     value={confirmPassword}
+                    required
                     onChange={(e) => setConfirmPassword(e.target.value)}
                   ></Form.Control>
                 </Form.Group>
