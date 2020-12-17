@@ -3,51 +3,57 @@ import {
   ORDER_CREATE_REQUEST,
   ORDER_CREATE_SUCCESS,
   ORDER_CREATE_FAIL,
-  // ORDER_CREATE_RESET,
 } from '../constants/orderConstands'
+import { CART_CLEAR_ITEMS } from '../constants/cardConstands'
 
 import { logout } from '../actions/userActions'
 
 export const createOrder = (order) => async (dispatch, getState) => {
-  console.log("order", order);
-  // try {
-  //   dispatch({
-  //     type: ORDER_CREATE_REQUEST,
-  //   })
+  try {
+    dispatch({
+      type: ORDER_CREATE_REQUEST,
+    })
 
-  //   const {
-  //     userLogin: { userInfo },
-  //   } = getState()
+    const {
+      userLogin: { userInfo },
+    } = getState()
 
-  //   const config = {
-  //     headers: {
-  //       'Content-Type': 'application/json',
-  //       Authorization: `Bearer ${userInfo.token}`,
-  //     },
-  //   }
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    }
 
-  //   const { data } = await axios.post(`/api/orders`, order, config)
+    order = {
+      ...order,
+      user: {
+        _id: userInfo._id
+      }
+    }
 
-  //   dispatch({
-  //     type: ORDER_CREATE_SUCCESS,
-  //     payload: data,
-  //   })
-  //   dispatch({
-  //     type: CART_CLEAR_ITEMS,
-  //     payload: data,
-  //   })
-  //   localStorage.removeItem('cartItems')
-  // } catch (error) {
-  //   const message =
-  //     error.response && error.response.data.message
-  //       ? error.response.data.message
-  //       : error.message
-  //   if (message === 'Not authorized, token failed') {
-  //     dispatch(logout())
-  //   }
-  //   dispatch({
-  //     type: ORDER_CREATE_FAIL,
-  //     payload: message,
-  //   })
-  // }
+    const { data } = await axios.post(`/orders`, order, config)
+
+    dispatch({
+      type: ORDER_CREATE_SUCCESS,
+      payload: data,
+    })
+    dispatch({
+      type: CART_CLEAR_ITEMS,
+      payload: data,
+    })
+    localStorage.removeItem('cartItems')
+  } catch (error) {
+    const message =
+      error.response && error.response.data.message
+        ? error.response.data.message
+        : error.message
+    if (message === 'Not authorized, token failed') {
+      dispatch(logout())
+    }
+    dispatch({
+      type: ORDER_CREATE_FAIL,
+      payload: message,
+    })
+  }
 }
