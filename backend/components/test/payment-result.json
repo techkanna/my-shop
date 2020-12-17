@@ -1,0 +1,22 @@
+{
+  "collectionName": "components_test_payment_results",
+  "info": {
+    "name": "paymentResult",
+    "icon": "comment-dollar"
+  },
+  "options": {},
+  "attributes": {
+    "paymentResultId": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string"
+    },
+    "update_time": {
+      "type": "string"
+    },
+    "email_address": {
+      "type": "string"
+    }
+  }
+}

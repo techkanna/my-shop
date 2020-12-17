@@ -1,0 +1,29 @@
+{
+  "collectionName": "components_test_order_items",
+  "info": {
+    "name": "orderItems",
+    "icon": "address-card"
+  },
+  "options": {},
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "image": {
+      "type": "string",
+      "required": true
+    },
+    "qty": {
+      "type": "integer",
+      "required": true
+    },
+    "price": {
+      "type": "decimal",
+      "required": true
+    },
+    "products": {
+      "collection": "product"
+    }
+  }
+}
