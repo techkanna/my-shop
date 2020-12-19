@@ -6,6 +6,9 @@ import Message from '../components/Message'
 import { addToCart, removeFromCart } from '../actions/cardActions'
 import { sortText, getRs } from '../helper'
 
+const DEPLOYURL = 'https://dews-shop-api.herokuapp.com'
+
+
 function CartScreen({ match, location, history }) {
   const productId = match.params.id
 
@@ -46,7 +49,7 @@ function CartScreen({ match, location, history }) {
                 <ListGroup.Item key={item.product}>
                   <Row>
                     <Col md={2}>
-                      <Image src={item.image} alt={item.name} fluid rounded />
+                      <Image src={item.image ? `${DEPLOYURL}${item.image}` : ''} alt={item.name} fluid rounded />
                     </Col>
                     <Col md={3}>
                       <Link to={`/product/${item.product}`} title={item.name}>{sortText(item.name, 30)}</Link>

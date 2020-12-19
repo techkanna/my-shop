@@ -18,6 +18,7 @@ import {
 
 import { getRs } from '../helper'
 
+const DEPLOYURL = 'https://dews-shop-api.herokuapp.com'
 
 function OrderScreen({ match, history }) {
   const orderId = match.params.id
@@ -148,7 +149,7 @@ function OrderScreen({ match, history }) {
                             <Row>
                               <Col md={1}>
                                 <Image
-                                  src={item.image}
+                                  src={item.image ? `${DEPLOYURL}${item.image}` : ''}
                                   alt={item.name}
                                   fluid
                                   rounded

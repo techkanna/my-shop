@@ -8,6 +8,8 @@ import { createOrder } from '../actions/orderActions'
 import { ORDER_CREATE_RESET } from '../constants/orderConstands'
 import { getRs } from '../helper'
 
+const DEPLOYURL = 'https://dews-shop-api.herokuapp.com'
+
 function PlaceOrderScreen({ history }) {
   const dispatch = useDispatch()
 
@@ -105,7 +107,7 @@ function PlaceOrderScreen({ history }) {
                         <Row>
                           <Col md={1}>
                             <Image
-                              src={item.image}
+                              src={item.image ? `${DEPLOYURL}${item.image}` : ''}
                               alt={item.name}
                               fluid
                               rounded
