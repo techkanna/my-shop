@@ -56,7 +56,7 @@ function OrderScreen({ match, history }) {
     }
 
     const addPayPalScript = async () => {
-      const clientId = "Aa4qXLLloWg8EZz1AaoLYyiDe8xKohxgw3kzdk3d2zlW3fYxGEV2QUEIKKXr7pKPuftCOgQaWQobM-iw"
+      const clientId = "AToEDqH7kkTn5N4rIFN9SmhU7zPGo5NkkqUYC6-Cr49DbatMARalsT3SARyBmPtZeRxEZCoCEhucnMPA"
       const script = document.createElement('script')
       script.type = 'text/javascript'
       script.src = `https://www.paypal.com/sdk/js?client-id=${clientId}`
@@ -207,7 +207,7 @@ function OrderScreen({ match, history }) {
                         <Loader />
                       ) : (
                           <PayPalButton
-                            amount={order.totalPrice}
+                            amount={10}
                             onSuccess={successPaymentHandler}
                           />
                         )}
