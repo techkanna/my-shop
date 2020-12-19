@@ -17,7 +17,12 @@ import {
 } from '../constants/userConstants'
 
 
-export const register = (name, email, password) => async (dispatch) => {
+export const register = (name, email, password) => async (dispatch, getState) => {
+
+  const {
+    userLogin: { DEPLOYURL },
+  } = getState()
+
   try {
     dispatch({
       type: USER_REGISTER_REQUEST,
@@ -30,7 +35,7 @@ export const register = (name, email, password) => async (dispatch) => {
     }
 
     const { data } = await axios.post(
-      '/auth/local/register',
+      `${DEPLOYURL}/auth/local/register`,
       { username: name, email, password },
       config
     )
@@ -58,7 +63,12 @@ export const register = (name, email, password) => async (dispatch) => {
   }
 }
 
-export const login = (email, password) => async (dispatch) => {
+export const login = (email, password) => async (dispatch, getState) => {
+
+  const {
+    userLogin: { DEPLOYURL },
+  } = getState()
+
   try {
     dispatch({
       type: USER_LOGIN_REQUEST,
@@ -71,7 +81,7 @@ export const login = (email, password) => async (dispatch) => {
     }
 
     const { data } = await axios.post(
-      '/auth/local',
+      `${DEPLOYURL}/auth/local`,
       { identifier: email, password },
       config
     )
@@ -106,6 +116,11 @@ export const logout = () => (dispatch) => {
 }
 
 export const getUserDetails = () => async (dispatch, getState) => {
+
+  const {
+    userLogin: { DEPLOYURL },
+  } = getState()
+
   try {
     dispatch({
       type: USER_DETAILS_REQUEST,
@@ -121,7 +136,7 @@ export const getUserDetails = () => async (dispatch, getState) => {
       },
     }
 
-    const { data } = await axios.get(`users/me`, config)
+    const { data } = await axios.get(`${DEPLOYURL}/users/me`, config)
 
     dispatch({
       type: USER_DETAILS_SUCCESS,
@@ -143,6 +158,12 @@ export const getUserDetails = () => async (dispatch, getState) => {
 }
 
 export const updateUserProfile = (user) => async (dispatch, getState) => {
+
+  const {
+    userLogin: { DEPLOYURL },
+  } = getState()
+
+
   try {
     dispatch({
       type: USER_UPDATE_PROFILE_REQUEST,
@@ -159,7 +180,7 @@ export const updateUserProfile = (user) => async (dispatch, getState) => {
       },
     }
 
-    const { data } = await axios.put(`/users/${userInfo.id}`, user, config)
+    const { data } = await axios.put(`${DEPLOYURL}/users/${userInfo.id}`, user, config)
 
     dispatch({
       type: USER_UPDATE_PROFILE_SUCCESS,

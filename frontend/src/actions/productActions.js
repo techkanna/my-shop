@@ -16,11 +16,17 @@ import {
 
 import { logout } from './userActions'
 
-export const getTopProducts = () => async (dispatch) => {
+
+export const getTopProducts = () => async (dispatch, getState) => {
+
+  const {
+    userLogin: { DEPLOYURL },
+  } = getState()
+
   try {
     dispatch({ type: PRODUCT_TOP_LIST_REQUEST })
 
-    const { data } = await axios.get('/products?_sort=rating:desc&_limit=3');
+    const { data } = await axios.get(`${DEPLOYURL}/products?_sort=rating:desc&_limit=3`);
 
     dispatch({ type: PRODUCT_TOP_LIST_SUCCESS, payload: data })
 
@@ -36,8 +42,13 @@ export const getTopProducts = () => async (dispatch) => {
 }
 
 export const listProducts = (keyword = '', pageNumber = 1) => async (
-  dispatch
+  dispatch, getState
 ) => {
+
+  const {
+    userLogin: { DEPLOYURL },
+  } = getState()
+
   try {
     dispatch({ type: PRODUCT_LIST_REQUEST })
 
@@ -50,19 +61,19 @@ export const listProducts = (keyword = '', pageNumber = 1) => async (
 
 
     const { data } = await axios.get(
-      `/products?name_contains=${keyword}&_start=${pageRange.start}&_limit=${pageRange.end}`
+      `${DEPLOYURL}/products?name_contains=${keyword}&_start=${pageRange.start}&_limit=${pageRange.end}`
     )
 
 
     // finding total page count for pagination
     if (keyword) {
       let { data } = await axios.get(
-        `/products?name_contains=${keyword}`
+        `${DEPLOYURL}/products?name_contains=${keyword}`
       )
       totalPagesToShow = Math.ceil(data.length / 10)
     } else {
       const { data } = await axios.get(
-        `/products`
+        `${DEPLOYURL}/products`
       )
       totalPagesToShow = Math.ceil(data.length / 10)
     }
@@ -87,11 +98,16 @@ export const listProducts = (keyword = '', pageNumber = 1) => async (
   }
 }
 
-export const listProductDetails = (id) => async (dispatch) => {
+export const listProductDetails = (id) => async (dispatch, getState) => {
+
+  const {
+    userLogin: { DEPLOYURL },
+  } = getState()
+
   try {
     dispatch({ type: PRODUCT_DETAILS_REQUEST })
 
-    const { data } = await axios.get(`/products/${id}`)
+    const { data } = await axios.get(`${DEPLOYURL}/products/${id}`)
 
     dispatch({
       type: PRODUCT_DETAILS_SUCCESS,
@@ -112,6 +128,11 @@ export const createProductReview = (productId, review) => async (
   dispatch,
   getState
 ) => {
+
+  const {
+    userLogin: { DEPLOYURL },
+  } = getState()
+
   try {
     dispatch({
       type: PRODUCT_CREATE_REVIEW_REQUEST,
@@ -121,7 +142,7 @@ export const createProductReview = (productId, review) => async (
       userLogin: { userInfo },
     } = getState()
 
-    const { data: prodect } = await axios.get(`/products/${productId}`)
+    const { data: prodect } = await axios.get(`${DEPLOYURL}/products/${productId}`)
 
     if (prodect.reviews.find(prod => prod.reviewerId === userInfo._id)) {
       dispatch({
@@ -142,7 +163,7 @@ export const createProductReview = (productId, review) => async (
       "reviews": [...prodect.reviews, { ...review, name: userInfo.username, reviewerId: userInfo._id }]
     }
 
-    await axios.put(`/products/${productId}`, allReviews, config)
+    await axios.put(`${DEPLOYURL}/products/${productId}`, allReviews, config)
 
     dispatch({
       type: PRODUCT_CREATE_REVIEW_SUCCESS,

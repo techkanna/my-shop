@@ -6,23 +6,23 @@ import { getRs, sortText } from '../helper';
 function LatestProducts() {
   return (
     <>
-    <div className="container">
-      <h2 className='latest-prodct'>LATEST PRODUCTS</h2>
-      <div className='products'>
-      {products.map(product=>(
-        <Product key={product._id} product={product} />
-      ))}
+      <div className="container">
+        <h2 className='latest-prodct'>LATEST PRODUCTS</h2>
+        <div className='products'>
+          {products.map(product => (
+            <Product key={product._id} product={product} />
+          ))}
+        </div>
       </div>
-    </div>
     </>
   )
 }
 
-function Product({product}) {
+function Product({ product }) {
   return (
     <div className="card">
       <div className="card-head">
-        <img src={canonImg} alt={product.name}/>
+        <img src={canonImg} alt={product.name} />
       </div>
       <div className="card-body">
         <p className='product-name'>{sortText(product.name, 20)}</p>

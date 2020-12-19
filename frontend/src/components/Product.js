@@ -4,11 +4,13 @@ import { Card } from 'react-bootstrap'
 import Rating from './Rating'
 import { getRs, sortText } from '../helper';
 
+const DEPLOYURL = 'https://dews-shop-api.herokuapp.com'
+
 const Product = ({ product }) => {
   return (
     <Card className='my-3 p-3 rounded'>
       <Link to={`/product/${product._id}`} style={{ textAlign: 'center', height: '10rem', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-        <Card.Img src={product.image} style={{ maxWidth: '8rem', maxHeight: '10rem' }} variant='top' />
+        <Card.Img src={`${DEPLOYURL}${product.image}`} style={{ maxWidth: '8rem', maxHeight: '10rem' }} variant='top' />
       </Link>
 
       <Card.Body>

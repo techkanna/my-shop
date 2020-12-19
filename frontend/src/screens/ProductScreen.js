@@ -10,6 +10,10 @@ import Meta from '../components/Meta'
 import { getRs } from '../helper'
 import { PRODUCT_CREATE_REVIEW_RESET } from '../constants/productConstents'
 
+
+const DEPLOYURL = 'https://dews-shop-api.herokuapp.com'
+
+
 function ProductScreen({ match, history }) {
   const [qty, setQty] = useState(1)
   const [rating, setRating] = useState(0)
@@ -81,7 +85,7 @@ function ProductScreen({ match, history }) {
 
             <Row>
               <Col md={4}>
-                <Image src={product.image} alt={product.name} fluid />
+                <Image src={product.image ? `${DEPLOYURL}${product.image}` : ''} alt={product.name} fluid />
               </Col>
               <Col md={5}>
                 <ListGroup variant="flush">

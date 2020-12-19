@@ -21,6 +21,11 @@ import { CART_CLEAR_ITEMS } from '../constants/cardConstands'
 import { logout } from '../actions/userActions'
 
 export const createOrder = (order) => async (dispatch, getState) => {
+
+  const {
+    userLogin: { DEPLOYURL },
+  } = getState()
+
   try {
     dispatch({
       type: ORDER_CREATE_REQUEST,
@@ -44,7 +49,7 @@ export const createOrder = (order) => async (dispatch, getState) => {
       }
     }
 
-    const { data } = await axios.post(`/orders`, order, config)
+    const { data } = await axios.post(`${DEPLOYURL}/orders`, order, config)
 
     dispatch({
       type: ORDER_CREATE_SUCCESS,
@@ -71,6 +76,11 @@ export const createOrder = (order) => async (dispatch, getState) => {
 }
 
 export const getOrderDetails = (id) => async (dispatch, getState) => {
+
+  const {
+    userLogin: { DEPLOYURL },
+  } = getState()
+
   try {
     dispatch({
       type: ORDER_DETAILS_REQUEST,
@@ -86,7 +96,7 @@ export const getOrderDetails = (id) => async (dispatch, getState) => {
       },
     }
 
-    const { data } = await axios.get(`/orders/${id}`, config)
+    const { data } = await axios.get(`${DEPLOYURL}/orders/${id}`, config)
 
     dispatch({
       type: ORDER_DETAILS_SUCCESS,
@@ -111,6 +121,12 @@ export const payOrder = (orderId, paymentResult) => async (
   dispatch,
   getState
 ) => {
+
+  const {
+    userLogin: { DEPLOYURL },
+  } = getState()
+
+
   try {
     dispatch({
       type: ORDER_PAY_REQUEST,
@@ -139,7 +155,7 @@ export const payOrder = (orderId, paymentResult) => async (
     }
 
     const { data } = await axios.put(
-      `/api/orders/${orderId}`,
+      `${DEPLOYURL}/api/orders/${orderId}`,
       updatedOrder,
       config
     )
@@ -164,6 +180,12 @@ export const payOrder = (orderId, paymentResult) => async (
 }
 
 export const deliverOrder = (order) => async (dispatch, getState) => {
+
+  const {
+    userLogin: { DEPLOYURL },
+  } = getState()
+
+
   try {
     dispatch({
       type: ORDER_DELIVER_REQUEST,
@@ -185,7 +207,7 @@ export const deliverOrder = (order) => async (dispatch, getState) => {
     }
 
     const { data } = await axios.put(
-      `/api/orders/${order._id}`,
+      `${DEPLOYURL}/api/orders/${order._id}`,
       updatedOrder,
       config
     )
@@ -210,6 +232,12 @@ export const deliverOrder = (order) => async (dispatch, getState) => {
 }
 
 export const listMyOrders = () => async (dispatch, getState) => {
+
+
+  const {
+    userLogin: { DEPLOYURL },
+  } = getState()
+
   try {
     dispatch({
       type: ORDER_LIST_MY_REQUEST,
@@ -225,7 +253,7 @@ export const listMyOrders = () => async (dispatch, getState) => {
       },
     }
 
-    const { data } = await axios.get(`/orders?user._id=${userInfo._id}`, config)
+    const { data } = await axios.get(`${DEPLOYURL}/orders?user._id=${userInfo._id}`, config)
 
     dispatch({
       type: ORDER_LIST_MY_SUCCESS,

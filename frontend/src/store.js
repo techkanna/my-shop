@@ -21,7 +21,8 @@ const initialState = {
     shippingAddress: shippingAddressFromStorage
   },
   userLogin: {
-    userInfo: userInfoFromStorage
+    userInfo: userInfoFromStorage,
+    DEPLOYURL: 'https://dews-shop-api.herokuapp.com',
   },
 }
 

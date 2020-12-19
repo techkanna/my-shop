@@ -7,7 +7,13 @@ import {
 } from '../constants/cardConstands'
 
 export const addToCart = (id, qty) => async (dispatch, getState) => {
-  const { data } = await axios.get(`/products/${id}`)
+
+  const {
+    userLogin: { DEPLOYURL },
+  } = getState()
+
+
+  const { data } = await axios.get(`${DEPLOYURL}/products/${id}`)
 
   dispatch({
     type: CART_ADD_ITEM,

@@ -7,6 +7,8 @@ import { Carousel } from 'react-bootstrap'
 import Loader from './Loader';
 import Message from './Message';
 
+const DEPLOYURL = 'https://dews-shop-api.herokuapp.com'
+
 function MainBanner() {
   const dispatch = useDispatch();
   const storedProducts = useSelector(state => state.productsTopList)
@@ -29,7 +31,7 @@ function MainBanner() {
               {product.name} ({getRs(product.price)})
               </h2>
             <div className="img-wrap">
-              <img src={product.image} alt={product.name} />
+              <img src={`${DEPLOYURL}${product.image}`} alt={product.name} />
             </div>
           </Link>
         </Carousel.Item>
